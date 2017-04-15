@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BrotherBetsLibrary.Models;
 
 namespace BrotherBetsWeb.Controllers
 {
@@ -10,21 +11,27 @@ namespace BrotherBetsWeb.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var bets = new List<Bet>()
+            {
+                new Bet()
+                {
+                    Name = "Bet 1",
+                    Expiration = DateTime.Today.AddDays(1)
+                },
+                new Bet()
+                {
+                    Name = "Bet 2",
+                    Expiration = DateTime.Today.AddDays(7)
+                },
+            };
+
+            return View(bets);
         }
 
-        public ActionResult About()
+
+        public ActionResult Guess(int id)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            throw new NotImplementedException();
         }
     }
 }
