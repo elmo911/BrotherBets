@@ -39,6 +39,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,13 +49,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookMaker.cs" />
+    <Compile Include="BrotherManager.cs" />
+    <Compile Include="Data\BetRepository.cs" />
+    <Compile Include="Data\BrotherRepository.cs" />
+    <Compile Include="Data\IBetRepository.cs" />
+    <Compile Include="Data\IBrotherRepository.cs" />
+    <Compile Include="Migrations\201704162204583_Initial.cs" />
+    <Compile Include="Migrations\201704162204583_Initial.Designer.cs">
+      <DependentUpon>201704162204583_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Bet.cs" />
     <Compile Include="Models\BetOption.cs" />
+    <Compile Include="Data\BrotherBetContext.cs" />
+    <Compile Include="Models\Brother.cs" />
+    <Compile Include="Models\Prediction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201704162204583_Initial.resx">
+      <DependentUpon>201704162204583_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

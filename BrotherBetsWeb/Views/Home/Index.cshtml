@@ -5,14 +5,21 @@
 
 <div class="jumbotron">
     <h1>Brother Bets</h1>
-    <p class="lead">Show your skils</p>
+    <p class="lead">Show your skills</p>
 </div>
 
 <h3>Bets</h3>
+<a href="@Url.Action("Create", "Home")" class="btn btn-primary pull-right" >Create A New Bet</a>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Prediction)
+        </th>
+        <th>
+            About
+        </th>
+        <th>
+            Created By
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Expiration)
@@ -23,10 +30,16 @@
     @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Prediction)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Expiration)
+                @Html.DisplayFor(modelItem => item.TargetOfBet.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Creator)
+            </td>
+            <td>
+                @item.Expiration.ToShortDateString()
             </td>
             <td>
                 @Html.ActionLink("Make A Guess", "Guess", new { id=item.Id })

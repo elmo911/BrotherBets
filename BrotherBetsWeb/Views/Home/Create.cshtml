@@ -1,0 +1,88 @@
+﻿@model BrotherBetsLibrary.Models.Bet
+
+<h2>Create New Bet</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Prediction, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Prediction, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Prediction, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Expiration, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Expiration, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Expiration, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Creator, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Creator, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Creator, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label col-md-2">Who is this bet about?</label>
+            <div class="col-md-10">
+                @Html.Action("BrotherSelectView","CommonView")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Outcome1">Outcome 1</label>
+            <div class="col-md-10">
+                <input class="form-control" id="Outcome1" name="Outcomes" type="text" value="" required />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Outcome2">Outcome 2</label>
+            <div class="col-md-10">
+                <input class="form-control" id="Outcome2" name="Outcomes" type="text" value="" required/>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Outcome3">Outcome 3 (Optional)</label>
+            <div class="col-md-10">
+                <input class="form-control" id="Outcome3" name="Outcomes" type="text" value="" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label col-md-2" for="Outcome4">Outcome 4 (Optional)</label>
+            <div class="col-md-10">
+                <input class="form-control" id="Outcome4" name="Outcomes" type="text" value="" />
+            </div>
+        </div>
+
+        
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
