@@ -19,7 +19,7 @@ namespace BrotherBetsWeb.Controllers
 
         public ActionResult Index()
         {
-            var bets = Bookie.GetBets();
+            var bets = Bookie.Bets();
 
             return View(bets);
         }
@@ -27,13 +27,35 @@ namespace BrotherBetsWeb.Controllers
 
         public ActionResult Guess(int id)
         {
-            throw new NotImplementedException();
+            var bet = Bookie.GetBet(id);
+            if (bet == null) return HttpNotFound();
+            return View(bet);
+        }
+
+        [HttpPost]
+        public ActionResult Guess(int betId, int outcomeId, string bettorName)
+        {
+            var bet = Bookie.GetBet(betId);
+            if (bet == null) return View("Error");
+            var outcome = bet.BetOptions.FirstOrDefault(betOption => betOption.Id == outcomeId);
+            if (outcome == null) return View("Error");
+            var brother = bet.Brother;
+            if (brother == null) return View("Error");
+            var bettor = BettorManager.Get(bettorName);
+            if (bettor == null)
+            {
+                BettorManager.Add(bettorName);
+                bettor = BettorManager.Get(bettorName);
+            }
+            Bookie.TakeBet(bettor, outcome, brother);
+            return RedirectToAction("Index");
         }
 
         public ActionResult Create()
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Create(Bet newBet, string bettorName, string brotherName, string[] outcomes)
         {

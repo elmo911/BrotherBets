@@ -198,6 +198,7 @@
     <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Views\CommonView\Error.cshtml" />
     <Content Include="Views\CommonView\BrotherSelectView.cshtml" />
+    <Content Include="Views\Home\Guess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

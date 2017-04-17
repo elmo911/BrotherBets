@@ -11,6 +11,7 @@ namespace BrotherBetsLibrary.Data
         }
 
         public virtual DbSet<Bet> Bets { get; set; }
+        public virtual DbSet<BetOption> BetOptions { get; set; }
         public virtual DbSet<Brother> Brothers { get; set; }
         public virtual DbSet<Prediction> Predictions { get; set; }
         public virtual DbSet<Bettor> Bettors { get; set; }
