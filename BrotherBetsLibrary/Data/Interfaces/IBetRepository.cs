@@ -9,5 +9,6 @@ namespace BrotherBetsLibrary.Data.Interfaces
         List<Bet> GetAll();
         Bet Get(int betId);
         void TakeBet(Bettor bettor, BetOption outcome, Brother brother);
+        bool HasTakenBet(Bettor bettor, Bet bet);
     }
 }

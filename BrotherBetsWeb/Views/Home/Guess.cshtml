@@ -7,6 +7,12 @@
 
 <h2>@Model.Prediction</h2>
 <hr/>
+@if (ViewBag.VotingError != null)
+{
+    <div class="alert alert-warning">
+        <strong>Your Bet Was Not Recorded</strong><br/> @ViewBag.VotingError
+    </div>
+}
 @using(Html.BeginForm()) 
 { 
     <input type="hidden" name="betId" value="@Model.Id"/>  

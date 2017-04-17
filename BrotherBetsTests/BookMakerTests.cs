@@ -14,10 +14,13 @@ namespace BrotherBetsTests
 {
     public class BookMakerTests
     {
-        private Bet ValidBet => new Bet() {Expiration = DateTime.Today.AddDays(2)};
+        
+        private Bet ValidNewBet => new Bet() {Expiration = DateTime.Today.AddDays(2)};
         private Bettor ValidBettor => new Bettor {Id = 1};
         private Brother ValidBrother => new Brother {Id = 1};
         private string[] ValidOutcome => new[] {"Outcome 1", "Outcome 2", "", ""};
+        private BetOption ValidBetOption => new BetOption() { Id = 1 };
+        private Bet ValidBet => new Bet() { Id = 1};
 
         [Fact]
         public void AddBet_BetNull_ArgumentNullEx()
@@ -35,37 +38,37 @@ namespace BrotherBetsTests
         public void AddBet_BetTargetNullOrDefault_ArgumentEx()
         {
             var bookie = new BookMaker();
-            Assert.Throws<ArgumentNullException>(() => bookie.AddBet(ValidBet, ValidBettor, null, ValidOutcome));
-            Assert.Throws<ArgumentException>(() => bookie.AddBet(ValidBet, ValidBettor, new Brother(), ValidOutcome));
+            Assert.Throws<ArgumentNullException>(() => bookie.AddBet(ValidNewBet, ValidBettor, null, ValidOutcome));
+            Assert.Throws<ArgumentException>(() => bookie.AddBet(ValidNewBet, ValidBettor, new Brother(), ValidOutcome));
         }
 
         [Fact]
         public void AddBet_BettorNullOrDefault_ArgumentEx()
         {
             var bookie = new BookMaker();
-            Assert.Throws<ArgumentNullException>(() => bookie.AddBet(ValidBet, null, ValidBrother, ValidOutcome));
-            Assert.Throws<ArgumentException>(() => bookie.AddBet(ValidBet, new Bettor(), ValidBrother, ValidOutcome));
+            Assert.Throws<ArgumentNullException>(() => bookie.AddBet(ValidNewBet, null, ValidBrother, ValidOutcome));
+            Assert.Throws<ArgumentException>(() => bookie.AddBet(ValidNewBet, new Bettor(), ValidBrother, ValidOutcome));
         }
 
         [Fact]
         public void AddBet_OutcomesNull_ArgumentNullEx()
         {
             var bookie = new BookMaker();
-            Assert.Throws<ArgumentNullException>(() => bookie.AddBet(ValidBet, ValidBettor, ValidBrother, null));
+            Assert.Throws<ArgumentNullException>(() => bookie.AddBet(ValidNewBet, ValidBettor, ValidBrother, null));
         }
         [Fact]
         public void AddBet_EmptyPredictions_Exception()
         {
             var betRepoMock = new Mock<IBetRepository>();
             var bookie = new BookMaker(betRepoMock.Object);
-            Assert.Throws<Exception>(() => bookie.AddBet(ValidBet, ValidBettor, ValidBrother, new[] {"", "", ""}));
+            Assert.Throws<Exception>(() => bookie.AddBet(ValidNewBet, ValidBettor, ValidBrother, new[] {"", "", ""}));
         }
         [Fact]
         public void AddBet_OnePrediction_ThrowsException()
         {
             var betRepoMock = new Mock<IBetRepository>();
             var bookie = new BookMaker(betRepoMock.Object);
-            Assert.Throws<Exception>(() => bookie.AddBet(ValidBet, ValidBettor, ValidBrother, new[] {"Prediction", "", ""}));
+            Assert.Throws<Exception>(() => bookie.AddBet(ValidNewBet, ValidBettor, ValidBrother, new[] {"Prediction", "", ""}));
         }
 
         [Fact]
@@ -81,7 +84,7 @@ namespace BrotherBetsTests
         {
             var betRepoMock = new Mock<IBetRepository>();
             var bookie = new BookMaker(betRepoMock.Object);
-            bookie.AddBet(ValidBet, ValidBettor, ValidBrother, ValidOutcome);
+            bookie.AddBet(ValidNewBet, ValidBettor, ValidBrother, ValidOutcome);
             betRepoMock.Verify(m => m.Add(It.IsAny<Bet>(), It.IsAny<Bettor>(), It.IsAny<Brother>()));
         }
 
@@ -104,28 +107,28 @@ namespace BrotherBetsTests
         }
 
         [Fact]
-        public void TakeBet_NullBettor_ThrowsException()
+        public void TakeBet_NullBettor_ThrowsArgumentNullEx()
         {
             var bookie = new BookMaker();
-            Assert.Throws<ArgumentException>(() => bookie.TakeBet(null, new BetOption(){Id = 1}, ValidBrother));
+            Assert.Throws<ArgumentNullException>(() => bookie.TakeBet(null, ValidBetOption, ValidBrother));
         }
 
         [Fact]
-        public void TakeBet_NoBettorId_ThrowsException()
+        public void TakeBet_NoBettorId_ThrowsArgumentException()
         {
             var bookie = new BookMaker();
-            Assert.Throws<ArgumentException>(() => bookie.TakeBet(new Bettor(), new BetOption() { Id = 1 }, ValidBrother));
+            Assert.Throws<ArgumentException>(() => bookie.TakeBet(new Bettor(), ValidBetOption, ValidBrother));
         }
 
         [Fact]
-        public void TakeBet_NullOption_ThrowsException()
+        public void TakeBet_NullOption_ThrowsArgumentNullEx()
         {
             var bookie = new BookMaker();
-            Assert.Throws<ArgumentException>(() => bookie.TakeBet(ValidBettor, null, ValidBrother));
+            Assert.Throws<ArgumentNullException>(() => bookie.TakeBet(ValidBettor, null, ValidBrother));
         }
 
         [Fact]
-        public void TakeBet_NoOptionId_ThrowsException()
+        public void TakeBet_NoOptionId_ThrowsArgumentException()
         {
             var bookie = new BookMaker();
             Assert.Throws<ArgumentException>(() => bookie.TakeBet(ValidBettor, new BetOption(), ValidBrother));
@@ -136,8 +139,45 @@ namespace BrotherBetsTests
         {
             var betRepoMock = new Mock<IBetRepository>();
             var bookie = new BookMaker(betRepoMock.Object);
-            bookie.TakeBet(ValidBettor, new BetOption(){Id = 1}, ValidBrother);
+            bookie.TakeBet(ValidBettor, ValidBetOption, ValidBrother);
             betRepoMock.Verify(m => m.TakeBet(It.IsAny<Bettor>(), It.IsAny<BetOption>(), It.IsAny<Brother>()));
+        }
+
+        [Fact]
+        public void HasTakenBet_NullBet_ThrowsNullException()
+        {
+            var bookie = new BookMaker();
+            Assert.Throws<ArgumentNullException>(() => bookie.HasTakenBet(ValidBettor, null));
+        }
+
+        [Fact]
+        public void HasTakenBet_DefaultBet_ThrowsArguementException()
+        {
+            var bookie = new BookMaker();
+            Assert.Throws<ArgumentException>(() => bookie.HasTakenBet(ValidBettor, new Bet()));
+        }
+
+        [Fact]
+        public void HasTakenBet_NullBettor_ThrowsNullException()
+        {
+            var bookie = new BookMaker();
+            Assert.Throws<ArgumentNullException>(() => bookie.HasTakenBet(null, ValidBet));
+        }
+
+        [Fact]
+        public void HasTakenBet_DefaultBettor_ThrowsArgumentException()
+        {
+            var bookie = new BookMaker();
+            Assert.Throws<ArgumentException>(() => bookie.HasTakenBet(new Bettor(), ValidBet));
+        }
+
+        [Fact]
+        public void HasTakenBet_Valid_ReturnsIfBetterBetOnBet()
+        {
+            var repo = new Mock<IBetRepository>();
+            var bookie = new BookMaker(repo.Object);
+            var betTaken = bookie.HasTakenBet(ValidBettor, ValidBet);
+            repo.Verify(m => m.HasTakenBet(It.IsAny<Bettor>(), It.IsAny<Bet>()));
         }
     }
 }

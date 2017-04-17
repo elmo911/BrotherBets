@@ -47,7 +47,18 @@ namespace BrotherBetsWeb.Controllers
                 BettorManager.Add(bettorName);
                 bettor = BettorManager.Get(bettorName);
             }
-            Bookie.TakeBet(bettor, outcome, brother);
+            try
+            {
+                if(Bookie.HasTakenBet(bettor, bet))
+                    throw new Exception($"{bettor.Name} has already place a bet and cannot bet again.");
+                Bookie.TakeBet(bettor, outcome, brother);
+            }
+            catch (Exception exception)
+            {
+                ViewBag.VotingError = exception.Message;
+                return View(bet);
+            }
+            
             return RedirectToAction("Index");
         }
 

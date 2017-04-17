@@ -58,10 +58,22 @@ namespace BrotherBetsLibrary
 
         public void TakeBet(Bettor bettor, BetOption outcome, Brother brother)
         {
-            if(bettor == null || bettor.Id == default(int)) throw new ArgumentException( nameof(bettor));
-            if(outcome == null || outcome.Id == default(int)) throw new ArgumentException(nameof(outcome));
-            if(brother == null || brother.Id == default(int)) throw new ArgumentException(nameof(brother));
+            if(bettor == null) throw new ArgumentNullException(nameof(bettor));
+            if(bettor.Id == default(int)) throw new ArgumentException( nameof(bettor));
+            if(outcome == null) throw new ArgumentNullException(nameof(outcome));
+            if(outcome.Id == default(int)) throw new ArgumentException(nameof(outcome));
+            if(brother == null) throw new ArgumentNullException(nameof(brother));
+            if(brother.Id == default(int)) throw new ArgumentException(nameof(brother));
             _betRepository.TakeBet(bettor, outcome, brother);
+        }
+
+        public bool HasTakenBet(Bettor bettor, Bet bet)
+        {
+            if (bettor == null) throw new ArgumentNullException(nameof(bettor));
+            if (bettor.Id == default(int)) throw new ArgumentException(nameof(bettor));
+            if (bet == null) throw new ArgumentNullException(nameof(bet));
+            if (bet.Id == default(int)) throw new ArgumentException(nameof(bet));
+            return _betRepository.HasTakenBet(bettor, bet);
         }
     }
 }

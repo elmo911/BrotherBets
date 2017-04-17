@@ -47,5 +47,11 @@ namespace BrotherBetsLibrary.Data.Repositories
             brother.Predictions.Add(prediction);
             _context.SaveChanges();
         }
+
+        public bool HasTakenBet(Bettor bettor, Bet bet)
+        {
+            return _context.Predictions
+                .Any(p => p.Bettor.Id == bettor.Id && p.OutcomePredicted.Bet.Id == bet.Id);
+        }
     }
 }
