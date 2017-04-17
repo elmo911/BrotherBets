@@ -34,6 +34,10 @@ namespace BrotherBetsLibrary
             if (betTarget.Id == default(int)) throw new ArgumentException(nameof(betTarget));
             if (predictedOutcomes == null) throw new ArgumentNullException(nameof(predictedOutcomes));
 
+            if (bet.Expiration < DateTime.Today.AddDays(2))
+                throw new Exception(
+                    $"Come on, you need to give more time than that! Set the date to at least {DateTime.Today.AddDays(2).ToShortDateString()}");
+
             var betOutcomes = predictedOutcomes
                 .Where(o => !string.IsNullOrWhiteSpace(o))
                 .Select(o => new BetOption() { Outcome = o, Bet = bet });

@@ -11,6 +11,7 @@ namespace BrotherBetsLibrary.Models
         [Required]
         [StringLength(50)]
         public string Prediction { get; set; }
+        [DisplayName("Date Everyone Must Vote By")]
         public DateTime Expiration { get; set; }
         [Required]
         [DisplayName("Bet Creator")]

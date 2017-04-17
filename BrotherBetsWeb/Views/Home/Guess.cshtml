@@ -27,7 +27,14 @@
 
     <div class="form-group">
         <a href="@Url.Action("Index", "Home")" class="btn btn-default">< Back</a>
-        <input type="submit" value="Place Your Bet!" class="btn btn-primary" />
+        @if (DateTime.Today <= Model.Expiration)
+        {
+            <input type="submit" value="Place Your Bet!" class="btn btn-primary"/>
+        }
+        else
+        {
+            <input type="button" value="Voting Is Closed!" class="btn btn-danger" />
+        }
     </div>
 }
 
