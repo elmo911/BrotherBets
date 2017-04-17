@@ -14,6 +14,8 @@ namespace BrotherBetsWeb.Controllers
         private BookMaker Bookie => _bookMaker ?? (_bookMaker = new BookMaker());
         private BrotherManager _broManager;
         private BrotherManager BrotherManager => _broManager ?? (_broManager = new BrotherManager());
+        private BettorManager _bettorManager;
+        private BettorManager BettorManager => _bettorManager ?? (_bettorManager = new BettorManager());
 
         public ActionResult Index()
         {
@@ -33,11 +35,19 @@ namespace BrotherBetsWeb.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(Bet newBet, string brother, string[] outcomes)
+        public ActionResult Create(Bet newBet, string bettorName, string brotherName, string[] outcomes)
         {
             try
             {
-                Bookie.AddBet(newBet, BrotherManager.Get(brother), outcomes);
+                var brother = BrotherManager.Get(brotherName);
+                var bettor = BettorManager.Get(bettorName);
+                if (bettor == null)
+                {
+                    BettorManager.Add(bettorName);
+                    bettor = BettorManager.Get(bettorName);
+                }
+                
+                Bookie.AddBet(newBet, bettor, brother, outcomes);
             }
             catch (Exception exception)
             {

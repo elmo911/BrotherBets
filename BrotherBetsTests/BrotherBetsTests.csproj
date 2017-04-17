@@ -61,6 +61,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BettorManagerTests.cs" />
     <Compile Include="BookMakerTests.cs" />
     <Compile Include="BrotherManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -14,8 +14,8 @@ namespace BrotherBetsLibrary.Models
         public DateTime Expiration { get; set; }
         [Required]
         [DisplayName("Bet Creator")]
-        public string Creator { get; set; }
-        public virtual Brother TargetOfBet { get; set; }
+        public Bettor Bettor { get; set; }
+        public virtual Brother Brother { get; set; }
         public virtual List<BetOption> BetOptions { get; set; }
     }
 }

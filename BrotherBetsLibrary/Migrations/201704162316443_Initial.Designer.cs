@@ -13,7 +13,7 @@ namespace BrotherBetsLibrary.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201704162204583_Initial"; }
+            get { return "201704162316443_Initial"; }
         }
         
         string IMigrationMetadata.Source

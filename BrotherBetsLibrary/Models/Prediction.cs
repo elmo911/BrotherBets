@@ -6,7 +6,7 @@ namespace BrotherBetsLibrary.Models
     {
         public int Id { get; set; }
         public DateTime TimeOfPrediction { get; set; }
-        public virtual Brother Brother { get; set; }
+        public virtual Bettor Bettor { get; set; }
         public virtual BetOption OutcomePredicted { get; set; }
     }
 }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BrotherBetsLibrary.Data;
+using BrotherBetsLibrary.Data.Interfaces;
+using BrotherBetsLibrary.Data.Repositories;
 using BrotherBetsLibrary.Models;
 
 namespace BrotherBetsLibrary
@@ -22,7 +24,7 @@ namespace BrotherBetsLibrary
             _betRepository = betRepository;
         }
 
-        public void AddBet(Bet bet, Brother betTarget, string[] predictedOutcomes)
+        public void AddBet(Bet bet, Bettor bettor, Brother betTarget, string[] predictedOutcomes)
         {
             if (bet == null) throw new ArgumentNullException(nameof(bet));
             if (betTarget == null) throw new ArgumentNullException(nameof(betTarget));
@@ -33,7 +35,7 @@ namespace BrotherBetsLibrary
                 .Select(o => new BetOption() { Outcome = o, Bet = bet });
             bet.BetOptions = new List<BetOption>(betOutcomes);
             if(bet.BetOptions.Count < 2) throw new Exception("Bets must have at least two outcomes");
-            _betRepository.Add(bet, betTarget.Id);
+            _betRepository.Add(bet, bettor.Id, betTarget.Id);
         }
 
         public List<Bet> GetBets()

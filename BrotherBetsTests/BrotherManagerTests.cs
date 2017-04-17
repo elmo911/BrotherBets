@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BrotherBetsLibrary;
 using BrotherBetsLibrary.Data;
+using BrotherBetsLibrary.Data.Interfaces;
 using Moq;
 using Xunit;
 

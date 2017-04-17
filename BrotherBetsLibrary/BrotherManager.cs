@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BrotherBetsLibrary.Data;
+using BrotherBetsLibrary.Data.Interfaces;
+using BrotherBetsLibrary.Data.Repositories;
 using BrotherBetsLibrary.Models;
 
 namespace BrotherBetsLibrary

@@ -1,25 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BrotherBetsLibrary.Data.Interfaces;
 using BrotherBetsLibrary.Models;
 
-namespace BrotherBetsLibrary.Data
+namespace BrotherBetsLibrary.Data.Repositories
 {
     public class BetRepository : IBetRepository
     {
-        private BrotherBetContext _context;
+        private readonly BrotherBetContext _context;
 
         public BetRepository()
         {
             _context = new BrotherBetContext();
         }
 
-        public void Add(Bet bet, int brotherId)
+        public void Add(Bet bet, int bettorId, int brotherId)
         {
-            bet.TargetOfBet = _context.Brothers.Find(brotherId);
+            bet.Brother = _context.Brothers.Find(brotherId);
+            bet.Bettor = _context.Bettors.Find(bettorId);
             _context.Bets.Add(bet);
             _context.SaveChanges();
         }
