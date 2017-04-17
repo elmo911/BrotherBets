@@ -10,5 +10,7 @@ namespace BrotherBetsLibrary.Data.Interfaces
         Bet Get(int betId);
         void TakeBet(Bettor bettor, BetOption outcome, Brother brother);
         bool HasTakenBet(Bettor bettor, Bet bet);
+        void MarkComplete(Bet bet, Bettor bettor);
+        void MarkCorrect(BetOption betOption);
     }
 }

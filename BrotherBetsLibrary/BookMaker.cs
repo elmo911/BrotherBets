@@ -75,5 +75,16 @@ namespace BrotherBetsLibrary
             if (bet.Id == default(int)) throw new ArgumentException(nameof(bet));
             return _betRepository.HasTakenBet(bettor, bet);
         }
+
+        public void MarkAsComplete(BetOption betOption, Bettor bettor)
+        {
+            if (betOption == null) throw new ArgumentNullException(nameof(betOption));
+            if (betOption.Id == default(int)) throw new ArgumentException(nameof(betOption));
+            if (bettor == null) throw new ArgumentNullException(nameof(bettor));
+            if (bettor.Id == default(int)) throw new ArgumentException(nameof(bettor));
+            if(betOption.Bet.Complete) throw new Exception("Bet Already Complete");
+            _betRepository.MarkComplete(betOption.Bet, bettor);
+            _betRepository.MarkCorrect(betOption);
+        }
     }
 }

@@ -179,5 +179,61 @@ namespace BrotherBetsTests
             var betTaken = bookie.HasTakenBet(ValidBettor, ValidBet);
             repo.Verify(m => m.HasTakenBet(It.IsAny<Bettor>(), It.IsAny<Bet>()));
         }
+
+        [Fact]
+        public void MarkAsComplete_NullBet_ThrowsNullException()
+        {
+            var bookie = new BookMaker();
+            Assert.Throws<ArgumentNullException>(() => bookie.MarkAsComplete(null, ValidBettor));
+        }
+
+        [Fact]
+        public void MarkAsComplete_DefaultBet_ThrowsArgumentException()
+        {
+            var bookie = new BookMaker();
+            Assert.Throws<ArgumentException>(() => bookie.MarkAsComplete(new BetOption(), ValidBettor));
+        }
+
+        [Fact]
+        public void MarkAsComplete_NullBettor_ThrowsNullException()
+        {
+            var bookie = new BookMaker();
+            Assert.Throws<ArgumentNullException>(() => bookie.MarkAsComplete(ValidBetOption, null));
+        }
+
+        [Fact]
+        public void MarkAsComplete_DefaultBettor_ThrowsArgumentException()
+        {
+            var bookie = new BookMaker();
+            Assert.Throws<ArgumentException>(() => bookie.MarkAsComplete(ValidBetOption, new Bettor()));
+        }
+
+        [Fact]
+        public void MarkAsComplete_AlreadyComplete_ThrowsException()
+        {
+            var repo = new Mock<IBetRepository>();
+            var bookie = new BookMaker(repo.Object);
+            var completedOutcome = new BetOption()
+            {
+                Id = 1,
+                Bet = new Bet() { Id = 1, Complete = true}
+            };
+            Assert.Throws<Exception>(() => bookie.MarkAsComplete(completedOutcome, ValidBettor));
+        }
+
+        [Fact]
+        public void MarkAsComplete_Valid_MarksBetAsComplete()
+        {
+            var repo = new Mock<IBetRepository>();
+            var bookie = new BookMaker(repo.Object);
+            var outcome = new BetOption()
+            {
+                Id = 1,
+                Bet = new Bet() { Id = 1}
+            };
+            bookie.MarkAsComplete(outcome, ValidBettor);
+            repo.Verify(m => m.MarkComplete(It.IsAny<Bet>(), It.IsAny<Bettor>()));
+            repo.Verify(m => m.MarkCorrect(It.IsAny<BetOption>()));
+        }
     }
 }

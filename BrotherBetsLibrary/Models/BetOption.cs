@@ -7,6 +7,8 @@ namespace BrotherBetsLibrary.Models
         public int Id { get; set; }
         [StringLength(75)]
         public string Outcome { get; set; }
+
+        public bool Correct { get; set; }
         public virtual Bet Bet { get; set; }
     }
 }

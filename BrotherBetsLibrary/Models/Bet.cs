@@ -11,11 +11,14 @@ namespace BrotherBetsLibrary.Models
         [Required]
         [StringLength(50)]
         public string Prediction { get; set; }
+
         [DisplayName("Date Everyone Must Vote By")]
         public DateTime Expiration { get; set; }
+        public bool Complete { get; set; }
         [Required]
         [DisplayName("Bet Creator")]
-        public virtual Bettor Bettor { get; set; }
+        public virtual Bettor Creator { get; set; }
+        public virtual Bettor MarkedCompleteBy { get; set; }
         public virtual Brother Brother { get; set; }
         public virtual List<BetOption> BetOptions { get; set; }
     }

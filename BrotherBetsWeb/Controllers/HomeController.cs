@@ -25,6 +25,35 @@ namespace BrotherBetsWeb.Controllers
         }
 
 
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(Bet newBet, string bettorName, string brotherName, string[] outcomes)
+        {
+            try
+            {
+                var brother = BrotherManager.Get(brotherName);
+                var bettor = BettorManager.Get(bettorName);
+                if (bettor == null)
+                {
+                    BettorManager.Add(bettorName);
+                    bettor = BettorManager.Get(bettorName);
+                }
+
+                Bookie.AddBet(newBet, bettor, brother, outcomes);
+            }
+            catch (Exception exception)
+            {
+                ModelState.AddModelError("", exception.Message);
+                return View(newBet);
+            }
+
+            return RedirectToAction("Index");
+        }
+
         public ActionResult Guess(int id)
         {
             var bet = Bookie.GetBet(id);
@@ -62,32 +91,33 @@ namespace BrotherBetsWeb.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Create()
+        public ActionResult Complete(int id)
         {
-            return View();
+            var bet = Bookie.GetBet(id);
+            if (bet == null) return View("Error");
+            return View(bet);
         }
 
         [HttpPost]
-        public ActionResult Create(Bet newBet, string bettorName, string brotherName, string[] outcomes)
+        public ActionResult Complete(int betId, int outcomeId, string bettorName)
         {
+            var bet = Bookie.GetBet(betId);
+            if (bet == null) return View("Error");
+            var outcome = bet.BetOptions.FirstOrDefault(betOption => betOption.Id == outcomeId);
+            if (outcome == null) return View("Error");
+            var bettor = BettorManager.Get(bettorName);
             try
             {
-                var brother = BrotherManager.Get(brotherName);
-                var bettor = BettorManager.Get(bettorName);
-                if (bettor == null)
-                {
-                    BettorManager.Add(bettorName);
-                    bettor = BettorManager.Get(bettorName);
-                }
-                
-                Bookie.AddBet(newBet, bettor, brother, outcomes);
+                if(bettor == null)
+                    throw new Exception("Chances are you're trolling. Don't do that.");
+                Bookie.MarkAsComplete(outcome, bettor);
             }
             catch (Exception exception)
             {
-                ModelState.AddModelError("", exception.Message);
-                return View(newBet);
+                ViewBag.CompletionError = exception.Message;
+                return View(bet);
             }
-            
+
             return RedirectToAction("Index");
         }
     }

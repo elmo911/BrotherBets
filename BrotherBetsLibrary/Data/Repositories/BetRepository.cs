@@ -18,7 +18,7 @@ namespace BrotherBetsLibrary.Data.Repositories
         public void Add(Bet bet, Bettor bettor, Brother brother)
         {
             bet.Brother = _context.Brothers.Find(brother.Id);
-            bet.Bettor = _context.Bettors.Find(bettor.Id);
+            bet.Creator = _context.Bettors.Find(bettor.Id);
             _context.Bets.Add(bet);
             _context.SaveChanges();
         }
@@ -52,6 +52,21 @@ namespace BrotherBetsLibrary.Data.Repositories
         {
             return _context.Predictions
                 .Any(p => p.Bettor.Id == bettor.Id && p.OutcomePredicted.Bet.Id == bet.Id);
+        }
+
+        public void MarkComplete(Bet bet, Bettor bettor)
+        {
+            bet = _context.Bets.Find(bet.Id);
+            bet.Complete = true;
+            bet.MarkedCompleteBy = _context.Bettors.Find(bettor.Id);
+            _context.SaveChanges();
+        }
+
+        public void MarkCorrect(BetOption betOption)
+        {
+            var outcome = _context.BetOptions.Find(betOption.Id);
+            outcome.Correct = true;
+            _context.SaveChanges();
         }
     }
 }
