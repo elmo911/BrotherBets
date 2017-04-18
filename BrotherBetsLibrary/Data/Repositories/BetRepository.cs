@@ -68,5 +68,17 @@ namespace BrotherBetsLibrary.Data.Repositories
             outcome.Correct = true;
             _context.SaveChanges();
         }
+
+        public void AddPointsToSuccessfulGuess(BetOption betOption, long points)
+        {
+            var successfulGuessers = _context.Predictions
+                .Where(p => p.OutcomePredicted.Id == betOption.Id)
+                .Select(p => p.Bettor);
+            foreach (var bettor in successfulGuessers)
+            {
+                bettor.Points += points;
+            }
+            _context.SaveChanges();
+        }
     }
 }

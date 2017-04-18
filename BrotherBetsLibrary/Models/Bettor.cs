@@ -14,5 +14,6 @@ namespace BrotherBetsLibrary.Models
         [Index(IsUnique = true)]
         [StringLength(75)]
         public string Name { get; set; }
+        public long Points { get; set; }
     }
 }

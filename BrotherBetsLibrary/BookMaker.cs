@@ -85,6 +85,9 @@ namespace BrotherBetsLibrary
             if(betOption.Bet.Complete) throw new Exception("Bet Already Complete");
             _betRepository.MarkComplete(betOption.Bet, bettor);
             _betRepository.MarkCorrect(betOption);
+            _betRepository.AddPointsToSuccessfulGuess(betOption, 100);
         }
+
+        
     }
 }

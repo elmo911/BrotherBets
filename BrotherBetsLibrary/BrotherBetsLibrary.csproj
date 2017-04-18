@@ -74,6 +74,10 @@
     <Compile Include="Migrations\201704170326384_AddBetWhoMarkedAsCompleted.Designer.cs">
       <DependentUpon>201704170326384_AddBetWhoMarkedAsCompleted.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704180217078_AddBettorPoints.cs" />
+    <Compile Include="Migrations\201704180217078_AddBettorPoints.Designer.cs">
+      <DependentUpon>201704180217078_AddBettorPoints.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Bet.cs" />
     <Compile Include="Models\BetOption.cs" />
@@ -99,6 +103,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704170326384_AddBetWhoMarkedAsCompleted.resx">
       <DependentUpon>201704170326384_AddBetWhoMarkedAsCompleted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704180217078_AddBettorPoints.resx">
+      <DependentUpon>201704180217078_AddBettorPoints.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

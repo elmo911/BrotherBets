@@ -12,5 +12,6 @@ namespace BrotherBetsLibrary.Data.Interfaces
         bool HasTakenBet(Bettor bettor, Bet bet);
         void MarkComplete(Bet bet, Bettor bettor);
         void MarkCorrect(BetOption betOption);
+        void AddPointsToSuccessfulGuess(BetOption betOption, long points);
     }
 }

@@ -222,7 +222,7 @@ namespace BrotherBetsTests
         }
 
         [Fact]
-        public void MarkAsComplete_Valid_MarksBetAsComplete()
+        public void MarkAsComplete_Valid_MarksBetAsComplete_AndAddsPoints()
         {
             var repo = new Mock<IBetRepository>();
             var bookie = new BookMaker(repo.Object);
@@ -234,6 +234,7 @@ namespace BrotherBetsTests
             bookie.MarkAsComplete(outcome, ValidBettor);
             repo.Verify(m => m.MarkComplete(It.IsAny<Bet>(), It.IsAny<Bettor>()));
             repo.Verify(m => m.MarkCorrect(It.IsAny<BetOption>()));
+            repo.Verify(m => m.AddPointsToSuccessfulGuess(It.IsAny<BetOption>(), It.IsAny<long>()));
         }
     }
 }
