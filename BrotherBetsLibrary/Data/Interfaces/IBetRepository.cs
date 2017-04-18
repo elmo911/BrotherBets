@@ -13,5 +13,6 @@ namespace BrotherBetsLibrary.Data.Interfaces
         void MarkComplete(Bet bet, Bettor bettor);
         void MarkCorrect(BetOption betOption);
         void AddPointsToSuccessfulGuess(BetOption betOption, long points);
+        List<Prediction> GetPredictions(Bet bet);
     }
 }

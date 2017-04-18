@@ -12,9 +12,13 @@
         <strong>Your Bet Was Not Recorded</strong><br/> @ViewBag.VotingError
     </div>
 }
-<div class="text-right">
-    <a href="@Url.Action("Complete", "Home", new {Model.Id})">Mark As Complete</a>
-</div>
+@if (!Model.Complete)
+{
+    <div class="text-right">
+        <a href="@Url.Action("Complete", "Home", new {Model.Id})">Mark As Complete</a>
+    </div>
+}
+
 
 @using(Html.BeginForm()) 
 { 
@@ -39,7 +43,7 @@
 
     <div class="form-group">
         <a href="@Url.Action("Index", "Home")" class="btn btn-default">< Back</a>
-        @if (DateTime.Today <= Model.Expiration)
+        @if (DateTime.Today <= Model.Expiration && !Model.Complete)
         {
             <input type="submit" value="Place Your Bet!" class="btn btn-primary"/>
         }
@@ -50,6 +54,8 @@
         
     </div>
 }
+
+@Html.Action("BetPredictionList","CommonView", new { betId =  Model.Id })
 
 
 @section Scripts {

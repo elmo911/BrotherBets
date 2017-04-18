@@ -88,6 +88,11 @@ namespace BrotherBetsLibrary
             _betRepository.AddPointsToSuccessfulGuess(betOption, 100);
         }
 
-        
+        public List<Prediction> GetPredictions(Bet bet)
+        {
+            if (bet == null) throw new ArgumentNullException(nameof(bet));
+            if (bet.Id == default(int)) throw new ArgumentException(nameof(bet));
+            return _betRepository.GetPredictions(bet);
+        }
     }
 }

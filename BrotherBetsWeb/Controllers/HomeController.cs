@@ -88,7 +88,7 @@ namespace BrotherBetsWeb.Controllers
                 return View(bet);
             }
             
-            return RedirectToAction("Index");
+            return View(bet);
         }
 
         public ActionResult Complete(int id)

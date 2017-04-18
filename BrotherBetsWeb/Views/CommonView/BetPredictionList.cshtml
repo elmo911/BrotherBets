@@ -1,0 +1,22 @@
+﻿@model List<BrotherBetsWeb.Models.GroupedPrediction>
+
+@if (Model.Count == 0)
+{
+    <h2 class="text-center">No Bets Taken Yet</h2>
+}
+else
+{
+    <h2 class="text-center">@ViewBag.Votes Bet@(ViewBag.Votes > 1 ? "s" : "") Taken</h2>
+    <div class="row">
+        @foreach (var group in Model)
+        {
+            <div class="@(Model.Count == 2 ? "col-md-6" : Model.Count == 3 ? "col-md-4" : "col-md-3")">
+                <h4>@group.Answer (@group.PercentDisplay)</h4>
+                @foreach (var bet in group.Bets.OrderByDescending(b => b.Value))
+                {
+                    <p>@bet.Key | @bet.Value.ToShortDateString()</p>
+                }
+            </div>
+        }
+    </div>
+}

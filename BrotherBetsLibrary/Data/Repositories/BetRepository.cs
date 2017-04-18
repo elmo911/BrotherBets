@@ -80,5 +80,12 @@ namespace BrotherBetsLibrary.Data.Repositories
             }
             _context.SaveChanges();
         }
+
+        public List<Prediction> GetPredictions(Bet bet)
+        {
+            return _context.Predictions
+                .Where(p => p.OutcomePredicted.Bet.Id == bet.Id)
+                .ToList();
+        }
     }
 }

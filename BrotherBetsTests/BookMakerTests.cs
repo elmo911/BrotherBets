@@ -236,5 +236,28 @@ namespace BrotherBetsTests
             repo.Verify(m => m.MarkCorrect(It.IsAny<BetOption>()));
             repo.Verify(m => m.AddPointsToSuccessfulGuess(It.IsAny<BetOption>(), It.IsAny<long>()));
         }
+
+        [Fact]
+        public void GetPredictions_NullBet_ThrowsNullException()
+        {
+            var bookie = new BookMaker();
+            Assert.Throws<ArgumentNullException>(() => bookie.GetPredictions(null));
+        }
+
+        [Fact]
+        public void GetPredictions_DefaultBet_ThrowsArgumentException()
+        {
+            var bookie = new BookMaker();
+            Assert.Throws<ArgumentException>(() => bookie.GetPredictions(new Bet()));
+        }
+
+        [Fact]
+        public void GetPredictions_Valid_GetsPredictions()
+        {
+            var repo = new Mock<IBetRepository>();
+            var bookie = new BookMaker(repo.Object);
+            var result = bookie.GetPredictions(ValidBet);
+            repo.Verify(m => m.GetPredictions(It.IsAny<Bet>()));
+        }
     }
 }
