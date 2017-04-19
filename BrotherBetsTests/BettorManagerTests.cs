@@ -47,5 +47,14 @@ namespace BrotherBetsTests
             var bettors = manager.BettorNamesLike("Ja");
             repo.Verify(m => m.NamesLike("Ja"));
         }
+
+        [Fact]
+        public void GetAll_GetsBettors()
+        {
+            var repo = new Mock<IBettorRepository>();
+            var manager = new BettorManager(repo.Object);
+            var bettors = manager.GetAll();
+            repo.Verify(m => m.GetAll());
+        }
     }
 }

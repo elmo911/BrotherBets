@@ -43,5 +43,10 @@ namespace BrotherBetsLibrary
         {
             return _bettorRepository.NamesLike(partialName);
         }
+
+        public IEnumerable<Bettor> GetAll()
+        {
+            return _bettorRepository.GetAll();
+        }
     }
 }

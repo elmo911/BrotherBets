@@ -11,5 +11,6 @@ namespace BrotherBetsWeb.Models
         public Dictionary<string, DateTime> Bets { get; set; }
         public double PercentOfGuesses { get; set; }
         public string PercentDisplay => PercentOfGuesses.ToString("P");
+        public bool Correct { get; set; }
     }
 }

@@ -128,5 +128,12 @@ namespace BrotherBetsWeb.Controllers
                 return HttpNotFound();
             return View(bet);
         }
+
+        public ActionResult Leaderboards()
+        {
+            var bettors = BettorManager.GetAll()
+                .OrderByDescending(b => b.Points);
+            return View(bettors);
+        }
     }
 }

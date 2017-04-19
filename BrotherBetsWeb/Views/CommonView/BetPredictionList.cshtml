@@ -11,7 +11,15 @@ else
         @foreach (var group in Model)
         {
             <div class="@(Model.Count == 2 ? "col-md-6" : Model.Count == 3 ? "col-md-4" : "col-md-3")">
-                <h4>@group.Answer (@group.PercentDisplay)</h4>
+                @if (group.Correct)
+                {
+                    <h4 class="correct-outcome">@group.Answer (@group.PercentDisplay) <i class="fa fa-trophy" aria-hidden="true"></i></h4>
+                }
+                else
+                {
+                    <h4>@group.Answer (@group.PercentDisplay)</h4>
+                }
+                
                 @foreach (var bet in group.Bets.OrderByDescending(b => b.Value))
                 {
                     <p>@bet.Key | @bet.Value.ToShortDateString()</p>

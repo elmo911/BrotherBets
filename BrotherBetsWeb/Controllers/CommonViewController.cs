@@ -42,6 +42,7 @@ namespace BrotherBetsWeb.Controllers
                         groupedPredictions.Add(optionId, new GroupedPrediction()
                         {
                             Answer = prediction.OutcomePredicted.Outcome,
+                            Correct = prediction.OutcomePredicted.Correct,
                             Bets = new Dictionary<string, DateTime>() { { prediction.Bettor.Name, prediction.TimeOfPrediction } }
                         });
                     }
