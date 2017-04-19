@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
     $("#BettorAutocomplete").autocomplete({
-        source: "/BettorApi/BettorNameAutoComplete" 
+        source: "https://bro.wolfe.solutions/bets/BettorApi/BettorNameAutoComplete" 
     });
 })  

@@ -12,7 +12,7 @@ namespace BrotherBetsLibrary.Models
         [StringLength(50)]
         public string Prediction { get; set; }
 
-        [DisplayName("Date Everyone Must Vote By")]
+        [DisplayName("Must Guess By")]
         public DateTime Expiration { get; set; }
         public bool Complete { get; set; }
         [Required]
