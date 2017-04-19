@@ -5,11 +5,10 @@
 
 <div class="jumbotron">
     <h1>Brother Bets</h1>
-    <p class="lead">Show your skills</p>
+    <p class="lead"><b>Show your skills</b></p>
 </div>
 
-<h3>Bets</h3>
-<a href="@Url.Action("Create", "Home")" class="btn btn-primary pull-right"> Create A New Bet</a>
+<a href="@Url.Action("Create", "Home")" class="btn btn-primary btn-sm pull-right">New Bet</a>
 <table class="table">
     <tr>
         <th>
@@ -42,7 +41,14 @@
                 @item.Expiration.ToShortDateString()
             </td>
             <td>
-                @Html.ActionLink("Make A Guess", "Guess", new { id=item.Id })
+                @if (item.Complete)
+                {
+                    <a href="@Url.Action("Result", new {id = item.Id})" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> See Result</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Guess", new {id = item.Id})" class="btn btn-primary">Make A Guess <i class="fa fa-comment" aria-hidden="true"></i></a>
+                }
             </td>
         </tr>
     }

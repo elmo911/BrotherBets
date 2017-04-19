@@ -86,7 +86,7 @@ namespace BrotherBetsWeb.Controllers
             {
                 ViewBag.VotingError = exception.Message;
                 return View(bet);
-            }
+            } 
             
             return View(bet);
         }
@@ -119,6 +119,14 @@ namespace BrotherBetsWeb.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Result(int id)
+        {
+            var bet = Bookie.GetBet(id);
+            if (bet == null || !bet.Complete)
+                return HttpNotFound();
+            return View(bet);
         }
     }
 }

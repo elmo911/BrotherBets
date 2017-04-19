@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-family: 'Lato', sans-serif;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +22,41 @@ input,
 select,
 textarea {
     max-width: 380px;
+}
+
+.correct-outcome i {
+    color: #daa520;
+}
+
+.incorrect-outcome {
+    color: #B71C1C;
+}
+
+.navbar-default {
+    background-color: #375a7f;
+    border-color: transparent;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+    background-color: #28415b;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: #28415b;
+}
+
+.btn-primary {
+    color: #ffffff;
+    background-color: #375a7f;
+    border-color: #375a7f;
+}
+.btn-primary:hover {
+    color: #ffffff;
+    background-color: #28415b;
+    border-color: #253c54;
+}
+
+a {
+    color: #00bc8c;
+    text-decoration: none;
 }

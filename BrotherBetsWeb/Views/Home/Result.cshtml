@@ -1,0 +1,20 @@
+﻿@model BrotherBetsLibrary.Models.Bet
+<br />
+<h2>Result</h2>
+<div class="well">
+    <h3>@Model.Prediction</h3>
+    @for (var i = 0; i < Model.BetOptions.Count; i++)
+    {
+        if (Model.BetOptions[i].Correct)
+        {
+            <h4 class="correct-outcome">@(i+1). @Model.BetOptions[i].Outcome <i class="fa fa-trophy" aria-hidden="true"></i></h4>
+        }
+        else
+        {
+            <h4 class="incorrect-outcome">@(i+1). @Model.BetOptions[i].Outcome</h4>
+        }
+    }
+</div>
+
+
+@Html.Action("BetPredictionList", "CommonView", new { betId = Model.Id})
